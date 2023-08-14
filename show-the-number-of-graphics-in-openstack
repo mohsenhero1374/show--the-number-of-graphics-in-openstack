@@ -1,0 +1,276 @@
+
+#!/bin/bash
+
+####compute-13-2080Ti#####
+
+# Define the flavors you want to monitor
+flavors="x1 "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-13-2080Ti{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-13" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+####compute-13-2080Ti-JUPYTER######
+
+flavors="x1-JUPYTER "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-13-2080Ti-JUPYTER{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-13" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+#####compute-21-3090#######
+
+# Define the flavors you want to monitor
+flavors="x1 "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-21-3090{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-21" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+#####compute-21-3090-x2-2 graphics######
+
+# Define the flavors you want to monitor
+flavors="x2 "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+if [ $count -gt 0 ]; then
+    echo "compute-21-3090-x2-2graphics{host=\"$host\"} $((count + 1 ))"
+elif [ $count -eq 0 ]; then
+     echo "compute-21-graphics_machines-x2-2graphics{host=\"$host\"} $count"
+fi
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-21" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+
+######compute-21-3090-JUPYTER######
+
+flavors="x1-JUPYTER "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-21-3090-JUPYTER{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-21" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+####compute-23-3090######
+
+flavors="x1 "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-23-3090{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-23" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+####compute-23-3090-x2-2 graphics######
+
+# Define the flavors you want to monitor
+flavors="x2 "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+if [ $count -gt 0 ]; then
+    echo "compute-23-3090-x2-2graphics{host=\"$host\"} $((count + 1 ))"
+elif [ $count -eq 0 ]; then
+     echo "compute-23-3090-x2-2graphics{host=\"$host\"} $count"
+fi
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-23" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+####compute-23-3090-JUPYTER#####
+
+flavors="x1-JUPYTER "
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-23-JUPYTER{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-23" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+
+    done
+done
+
+####compute-22-V100#######
+
+
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+     local host="$1"
+
+     local count=$(openstack server list --all-projects --host "$host"  -c 'Flavor' | grep -E  "GPU-TeslaV100-16c-32r-150d-x1 |GPU-TeslaV100-32c-64r-200d-x1 |GPU-TeslaV100-64c-128r-200d-x1 |GPU-TeslaV100-128c-256r-200d-x1 " | wc -l)
+     echo "compute-22-V100{host=\"$host\"} $count"
+
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-22" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+
+    done
+done
+
+####compute-22-V100-JUPYTER#######
+
+flavors="GPU-TeslaV100-32c-64r-200d-x1-JUPYTER"
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-22-V100-JUPYTER{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-22" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+
+    done
+done
+
+####compute-22-V100-x2-2 graphics######
+
+# Define the flavors you want to monitor
+flavors="GPU-TeslaV100-32c-64r-200d-x2"
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+if [ $count -gt 0 ]; then
+    echo "compute-22-V100-x2-2graphics{host=\"$host\"} $((count + 1 ))"
+elif [ $count -eq 0 ]; then
+     echo "compute-22-V100-x2-2graphics{host=\"$host\"} $count"
+fi
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-22" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+    done
+done
+
+
+####compute-22-A100#######
+
+
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+     local host="$1"
+
+     local count=$(openstack server list --all-projects --host "$host"  -c 'Flavor' | grep -E  "GPU-TeslaA100-16c-32r-150d-x1 |GPU-TeslaA100-32c-64r-200d-x1 |GPU-TeslaA100-64c-128r-200d-x1 |GPU-TeslaA100-128c-256r-200d-x1 " | wc -l)
+     echo "compute-22-V100{host=\"$host\"} $count"
+
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-22" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+
+    done
+done
+
+####compute-22-A100-JUPYTER#######
+
+flavors="GPU-TeslaA100-32c-64r-200d-x1-JUPYTER"
+
+# Function to count instances by flavor on a specific host
+count_instances_by_flavor() {
+    local host="$1"
+   # local flavor="$2"
+    local count=$(openstack server list --all-projects --host "$host" -c 'Flavor' | grep -E "$flavor" | wc -l)
+    echo "compute-22-A100-JUPYTER{host=\"$host\"} $count"
+}
+
+# Loop through flavors and hosts to gather metrics
+for flavor in "${flavors[@]}"; do
+    for host in "compute-22" ; do
+        count_instances_by_flavor "$host" #"$flavor"#
+
+    done
+done
+
